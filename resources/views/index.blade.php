@@ -26,6 +26,9 @@
             padding: 22px;
             box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
         }
+        .ml30{
+            margin-left: 30px;
+        }
     </style>
 
 </head>
@@ -471,7 +474,7 @@
                     <div class="row">
 
                         <!-- Area Chart -->
-                        <div class="col-xl-8 col-lg-7">
+                        <div class="col-xl-12 col-lg-12">
                             <div class="card shadow mb-4">
                                 <!-- Card Header - Dropdown -->
                                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
@@ -480,25 +483,70 @@
                                     </div>
                                 </div>
                                 <!-- Card Body -->
-                                <div class="filter">
-                                    <span>FILTER</span>
+                                <div class="filter d-flex flex-row">
+                                    <div style="padding-top: 28px;">FILTER</div>
+                                    <div class="ml30">
+                                        Project Name
+                                        <div><input class="form-control" type="text" name="project" id=""></div>
+                                    </div>
+                                    <div class="ml30">
+                                        Client Name
+                                        <div>
+                                            <select class="form-control" name="client" id="">
+                                                <option value="1">tes</option>
+                                                <option value="1">tes</option>
+                                                <option value="1">tes</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="ml30">
+                                        Status
+                                        <div>
+                                            <select class="form-control" name="status" id="">
+                                                <option value="1">tes</option>
+                                                <option value="1">tes</option>
+                                                <option value="1">tes</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="ml30">
+                                        <button class="btn btn-info" style="margin-top:24px;">Search</button>
+                                        <button class="btn btn-primary" style="margin-top:24px;">Clear</button>
+                                    </div>
                                 </div>
                                 <div class="card-body">
+                                    <button class="btn btn-primary" style="margin-bottom:24px;">New</button>
+                                    <button class="btn btn-danger" style="margin-bottom:24px;">Delete</button>
                                     <table id="myTable" class="display">
                                         <thead>
                                             <tr>
-                                                <th>Column 1</th>
-                                                <th>Column 2</th>
+                                                <th><input class="form-check-input" type="checkbox" value="" id="checkAll" style="margin-left:20px; position: inherit;"></th>
+                                                <th>Action</th>
+                                                <th>Project Name</th>
+                                                <th>Client</th>
+                                                <th>Project Start</th>
+                                                <th>Project End</th>
+                                                <th>Status</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <tr>
-                                                <td>Row 1 Data 1</td>
+                                                <td><input class="form-check-input" type="checkbox" data-value="1" value="" id="checkbox-1" style="margin-left:20px; position: inherit;"></td>
+                                                <td>Row 1 Data 2</td>
+                                                <td>Row 1 Data 2</td>
+                                                <td>Row 1 Data 2</td>
+                                                <td>Row 1 Data 2</td>
+                                                <td>Row 1 Data 2</td>
                                                 <td>Row 1 Data 2</td>
                                             </tr>
                                             <tr>
-                                                <td>Row 2 Data 1</td>
-                                                <td>Row 2 Data 2</td>
+                                                <td><input class="form-check-input" type="checkbox" data-value="2" value="" id="checkbox-2" style="margin-left:20px; position: inherit;"></td>
+                                                <td>Row 1 Data 2</td>
+                                                <td>Row 1 Data 2</td>
+                                                <td>Row 1 Data 2</td>
+                                                <td>Row 1 Data 2</td>
+                                                <td>Row 1 Data 2</td>
+                                                <td>Row 1 Data 2</td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -507,7 +555,7 @@
                         </div>
 
                         <!-- Pie Chart -->
-                        <div class="col-xl-4 col-lg-5">
+                        {{-- <div class="col-xl-4 col-lg-5">
                             <div class="card shadow mb-4">
                                 <!-- Card Header - Dropdown -->
                                 <div
@@ -546,11 +594,11 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div> --}}
                     </div>
 
                     <!-- Content Row -->
-                    <div class="row">
+                    {{-- <div class="row">
 
                         <!-- Content Column -->
                         <div class="col-lg-6 mb-4">
@@ -700,7 +748,7 @@
                             </div>
 
                         </div>
-                    </div>
+                    </div> --}}
 
                 </div>
                 <!-- /.container-fluid -->
@@ -751,7 +799,28 @@
     <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.js"></script>
     <script>
-        let table = new DataTable('#myTable');
+        var getID = [];
+        $('#myTable').dataTable( {
+            "ordering": false
+        } );
+
+        $('#checkAll').click(function(event) {   
+            if(this.checked) {
+                var data = {};
+                // Iterate each checkbox
+                $(':checkbox').each(function(index, item) {
+                    this.checked = true;     
+                    data.Item = $(item).data('value');                 
+                });
+                getID.push(data);
+            } else {
+                $(':checkbox').each(function() {
+                    this.checked = false;                       
+                });
+            }
+        }); 
+        
+        console.log(getID)
     </script>
 
     <!-- Bootstrap core JavaScript-->
