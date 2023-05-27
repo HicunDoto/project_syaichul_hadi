@@ -800,7 +800,10 @@
     <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.js"></script>
     <script>
         var getID = [];
-        dataTable = $('#table').DataTable({
+        $(document).ready(function (){
+            // console.log({{  url('/getdata') }})
+            dataTable = $('#myTable').DataTable({
+            "ordering": false,
             "responsive": true,
             "processing" : false,
             "serverSide" : true,
@@ -836,32 +839,31 @@
                 }
             },
             "ajax" : {
-                "url" : "{$BaseHref}masterperiode/getMasterPeriode",
+                "url" : "{{  url('/getdata') }}",
                 data : function(){}
             },
             "drawCallback" : function(){},
             "deferRender" : true,
             "order" : [
                 // [0, 'desc']
-            ],
-            "columnDefs" : [
-                {
-                	"orderable" : false,
-                	"targets" : [0,1],
-                },
-                {
-                    "targets" : [0, 1],
-                    "className" : 'text-center float-center'
-                },
-                {
-                    "targets" : [2],
-                    "className" : 'valuehari'
-                }
-            ],
+            ]
+            // "columnDefs" : [
+            //     {
+            //     	"orderable" : false,
+            //     	"targets" : [0,1],
+            //     },
+            //     {
+            //         "targets" : [0, 1],
+            //         "className" : 'text-center float-center'
+            //     },
+            //     {
+            //         "targets" : [2],
+            //         "className" : 'valuehari'
+            //     }
+            // ],
+            });
         });
-        $('#myTable').dataTable( {
-            "ordering": false
-        } );
+        
 
         $('#checkAll').click(function(event) {   
             if(this.checked) {

@@ -24,7 +24,7 @@ class DashboardController extends Controller
             array_push($data, $arrTemp);
         }
 
-        return view('/index', with($data));
+        return json_encode($data);
         // dd($arr);
     }
 }
