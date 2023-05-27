@@ -484,6 +484,7 @@
                                 </div>
                                 <!-- Card Body -->
                                 <div class="filter d-flex flex-row">
+                                    <form id="form_filter">
                                     <div style="padding-top: 28px;">FILTER</div>
                                     <div class="ml30">
                                         Project Name
@@ -510,14 +511,15 @@
                                         </div>
                                     </div>
                                     <div class="ml30">
-                                        <button class="btn btn-info" style="margin-top:24px;">Search</button>
-                                        <button class="btn btn-primary" style="margin-top:24px;">Clear</button>
+                                        <button class="btn btn-info" id="search" style="margin-top:24px;" type="submit">Search</button>
+                                        <button class="btn btn-primary" id="clear" style="margin-top:24px;">Clear</button>
                                     </div>
+                                    </form>
                                 </div>
                                 <div class="card-body">
                                     <button class="btn btn-primary" style="margin-bottom:24px;">New</button>
                                     <button class="btn btn-danger" style="margin-bottom:24px;">Delete</button>
-                                    <table id="myTable" class="display">
+                                    <table id="myTable" class="dataTable">
                                         <thead>
                                             <tr>
                                                 <th><input class="form-check-input" type="checkbox" value="" id="checkAll" style="margin-left:20px; position: inherit;"></th>
@@ -530,24 +532,7 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <td><input class="form-check-input" type="checkbox" data-value="1" value="" id="checkbox-1" style="margin-left:20px; position: inherit;"></td>
-                                                <td>Row 1 Data 2</td>
-                                                <td>Row 1 Data 2</td>
-                                                <td>Row 1 Data 2</td>
-                                                <td>Row 1 Data 2</td>
-                                                <td>Row 1 Data 2</td>
-                                                <td>Row 1 Data 2</td>
-                                            </tr>
-                                            <tr>
-                                                <td><input class="form-check-input" type="checkbox" data-value="2" value="" id="checkbox-2" style="margin-left:20px; position: inherit;"></td>
-                                                <td>Row 1 Data 2</td>
-                                                <td>Row 1 Data 2</td>
-                                                <td>Row 1 Data 2</td>
-                                                <td>Row 1 Data 2</td>
-                                                <td>Row 1 Data 2</td>
-                                                <td>Row 1 Data 2</td>
-                                            </tr>
+
                                         </tbody>
                                     </table>
                                 </div>
@@ -800,6 +785,7 @@
     <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.js"></script>
     <script>
         var getID = [];
+        let params = [];
         $(document).ready(function (){
             // console.log({{  url('/getdata') }})
             dataTable = $('#myTable').DataTable({
@@ -807,13 +793,12 @@
             "responsive": true,
             "processing" : false,
             "serverSide" : true,
-            "searching" : true,
-            "ordering" : true,
+            // "searching" : true,
             // "fixedHeader" : true,
-            "scrollY" : 400,
-            "scrollX" : true,
+            // "scrollY" : 400,
+            // "scrollX" : true,
             "scrollCollapse" : true,
-            "fixedColumns" : true,
+            // "fixedColumns" : true,
             'language':{
                 "decimal":        "",
                 "emptyTable":     "Tidak ada data yang ditemukan",
@@ -840,30 +825,37 @@
             },
             "ajax" : {
                 "url" : "{{  url('/getdata') }}",
-                data : function(){}
+                data : function(d){
+                    d.fiilter_record = params;
+                }
             },
             "drawCallback" : function(){},
             "deferRender" : true,
             "order" : [
                 // [0, 'desc']
+            ],
+            "columnDefs" : [
+                // {
+                // 	"orderable" : false,
+                // 	"targets" : [0,1],
+                // },
+                // {
+                //     "targets" : [0, 1],
+                //     "className" : 'text-center float-center'
+                // }
+                // {
+                //     "targets" : [2],
+                //     "className" : 'valuehari'
+                // }
             ]
-            // "columnDefs" : [
-            //     {
-            //     	"orderable" : false,
-            //     	"targets" : [0,1],
-            //     },
-            //     {
-            //         "targets" : [0, 1],
-            //         "className" : 'text-center float-center'
-            //     },
-            //     {
-            //         "targets" : [2],
-            //         "className" : 'valuehari'
-            //     }
-            // ],
             });
         });
         
+        $('#form_filter').submit(function(event, ui) {
+            evt.preventDefault();
+            params = $(this).serialize();
+            table.ajax.reload();
+        });
 
         $('#checkAll').click(function(event) {   
             if(this.checked) {
