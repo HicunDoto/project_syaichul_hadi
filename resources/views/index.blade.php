@@ -800,6 +800,65 @@
     <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.js"></script>
     <script>
         var getID = [];
+        dataTable = $('#table').DataTable({
+            "responsive": true,
+            "processing" : false,
+            "serverSide" : true,
+            "searching" : true,
+            "ordering" : true,
+            // "fixedHeader" : true,
+            "scrollY" : 400,
+            "scrollX" : true,
+            "scrollCollapse" : true,
+            "fixedColumns" : true,
+            'language':{
+                "decimal":        "",
+                "emptyTable":     "Tidak ada data yang ditemukan",
+                "info":           "Menampilkan _START_ - _END_ dari total _TOTAL_ data pada kolom _PAGE_ dari _PAGES_ kolom ",
+                "infoEmpty":      "Data tidak ditemukan",
+                "infoFiltered":   "",
+                "infoPostFix":    "",
+                "thousands":      ",",
+                "lengthMenu":     "Menampilkan _MENU_ data",
+                "loadingRecords": "Loading...",
+                "processing":     "Processing...",
+                "search":         "Cari :",
+                "zeroRecords":    "Tidak ada data yang ditemukan",
+                "paginate": {
+                    "first":      "Pertama",
+                    "last":       "Terakhir",
+                    "next":       ">",
+                    "previous":   "<"
+                },
+                "aria": {
+                    "sortAscending":  ": activate to sort column ascending",
+                    "sortDescending": ": activate to sort column descending"
+                }
+            },
+            "ajax" : {
+                "url" : "{$BaseHref}masterperiode/getMasterPeriode",
+                data : function(){}
+            },
+            "drawCallback" : function(){},
+            "deferRender" : true,
+            "order" : [
+                // [0, 'desc']
+            ],
+            "columnDefs" : [
+                {
+                	"orderable" : false,
+                	"targets" : [0,1],
+                },
+                {
+                    "targets" : [0, 1],
+                    "className" : 'text-center float-center'
+                },
+                {
+                    "targets" : [2],
+                    "className" : 'valuehari'
+                }
+            ],
+        });
         $('#myTable').dataTable( {
             "ordering": false
         } );
